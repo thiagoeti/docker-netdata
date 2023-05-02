@@ -1,27 +1,17 @@
-# Docker - Netdata
+#!/bin/sh
 
-Netdata is tool for monitoring machine and containers.
-
-Get container **pull**.
-
-```console
+# pull
 docker pull "netdata/netdata"
-```
 
-Create **volume** for data.
-
-```console
+# volume
 docker volume create "netdataconfig"
 docker volume create "netdatalib"
 docker volume create "netdatacache"
 ln -s "/var/lib/docker/volumes/netdataconfig" "/data/volume/"
 ln -s "/var/lib/docker/volumes/netdatalib" "/data/volume/"
 ln -s "/var/lib/docker/volumes/netdatacache" "/data/volume/"
-```
 
-Create and **run** container.
-
-```console
+# run
 docker run --name "netdata" \
   -p 19999:19999 \
   -v "netdataconfig":"/etc/netdata" \
@@ -37,10 +27,12 @@ docker run --name "netdata" \
   --cap-add SYS_PTRACE \
   --security-opt apparmor=unconfined \
   -d "netdata/netdata"
-```
 
-Start container.
+# netdata
 
-```console
-docker start "netdata"
-```
+netdata-claim.sh -token=??? -rooms=??? -url=https://app.netdata.cloud
+
+# drop
+docker rm -f "netdata"
+
+#
